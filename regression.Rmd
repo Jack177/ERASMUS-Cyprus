@@ -1,0 +1,87 @@
+---
+title: "Regression"
+author: "Jordan Benrezkallah"
+date: "4/13/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+library("readxl")
+library(dplyr)
+#library(ggpubr)
+library(tidyverse)
+library(knitr)
+library(ggplot2)
+library(ggpubr)
+library(ggthemes)
+
+```
+
+
+```{r site A}
+A <- data.frame(x = c(6,28,66), y = c(0.181818182,0.315789474,0.627906977))
+ggplot(data=A, aes(x=x,y=y)) + 
+  geom_smooth(method = "lm", se=FALSE, color="black", formula=y~x-1,fullrange = T) +
+  geom_line(color="red") +
+  geom_point(shape=21, fill="red", color="black", size=3) +
+  stat_regline_equation(label.x = 5, label.y = 0.75) +
+  stat_cor(aes(label=..rr.label..), label.x=5, label.y=0.65) +
+  scale_x_continuous(name="Number of bees previously marked, Mt",
+                     expand = c(0, 0),limits=c(0, 100)) +
+  scale_y_continuous(name="Proportion marked in catch, Rt/Ct",
+                     expand = c(0, 0),limits=c(0, 1)) + 
+  theme(axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"),
+        axis.text.x = element_text(face="bold", color= "black", size=10),
+        axis.text.y = element_text(face="bold", color= "black", size=10),
+        panel.grid.major = element_blank(),
+panel.grid.minor = element_blank()) 
+
+ggsave(filename = "regression_A.pdf", device = cairo_pdf)
+```
+```{r site C}
+C <- data.frame(y = c(0.125,0.333333333,0.175),x = c(22,46,79))
+
+ggplot(data=C, aes(x=x,y=y)) + 
+  geom_smooth(method = "lm", se=FALSE, color="black", formula=y~x-1,fullrange = T) +
+  geom_line(color="red") +
+  geom_point(shape=21, fill="red", color="black", size=3) +
+  stat_regline_equation(label.x = 5, label.y = 0.75) +
+  stat_cor(aes(label=..rr.label..), label.x=5, label.y=0.65) +
+  scale_x_continuous(name="Number of bees previously marked, Mt",
+                     expand = c(0, 0),limits=c(0, 100)) +
+  scale_y_continuous(name="Proportion marked in catch, Rt/Ct",
+                     expand = c(0, 0),limits=c(0, 1)) + 
+  theme(axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"),
+        axis.text.x = element_text(face="bold", color= "black", size=10),
+        axis.text.y = element_text(face="bold", color= "black", size=10),
+        panel.grid.major = element_blank(),
+panel.grid.minor = element_blank()) 
+
+ggsave(filename = "regression_C.pdf", device = cairo_pdf)
+```
+
+
+```{r site D}
+D <- data.frame(y = c(0.333333333,0.75,0.625),x = c(7,10,18))
+
+ggplot(data=D, aes(x=x,y=y)) + 
+  geom_smooth(method = "lm", se=FALSE, color="black", formula=y~x-1,fullrange = T) +
+  geom_line(color="red") +
+  geom_point(shape=21, fill="red", color="black", size=3) +
+  stat_regline_equation(label.x = 50, label.y = 0.75) +
+  stat_cor(aes(label=..rr.label..), label.x=50, label.y=0.65) +
+  scale_x_continuous(name="Number of bees previously marked, Mt",
+                     expand = c(0, 0),limits=c(0, 100)) +
+  scale_y_continuous(name="Proportion marked in catch, Rt/Ct",
+                     expand = c(0, 0),limits=c(0, 1)) + 
+  theme(axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"),
+        axis.text.x = element_text(face="bold", color= "black", size=10),
+        axis.text.y = element_text(face="bold", color= "black", size=10),
+        panel.grid.major = element_blank(),
+panel.grid.minor = element_blank()) 
+
+ggsave(filename = "regression_D.pdf", device = cairo_pdf)
+```

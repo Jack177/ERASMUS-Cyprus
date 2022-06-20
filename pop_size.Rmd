@@ -1,0 +1,73 @@
+---
+  title: "Size population protocol"
+author: "Jordan BENREZKALLAH"
+date: "10/04/2022"
+output:
+  pdf_document: default
+word_document: default
+html_document:
+  df_print: paged
+always_allow_html: true
+---
+  
+
+
+```{r setup, include=FALSE}
+library("readxl")
+library(dplyr)
+#library(ggpubr)
+library(tidyverse)
+library(knitr)
+library(ggplot2)
+#library(kableExtra)
+library(scales)
+#library(devEMF)
+library(mra)
+
+pop <- read_excel("DATA/RAW-data.xlsx")
+```
+
+
+```{r }
+# Distance protocol
+pop <- read_excel("DATA R/RAW-data.xlsx")
+pop %>% 
+  filter(., Site == "C" ) %>% 
+  select(., ID_BEE, Passage, Sex, Subsite) -> pop
+pop[order(pop$ID_BEE),] -> pop
+
+subset(pop,duplicated(ID_BEE) | duplicated(ID_BEE, fromLast=TRUE)) -> pop
+pop %>% 
+  distinct(Subsite, ID_BEE, .keep_all = TRUE) -> pop2
+```
+
+
+
+```{r matrix, echo=FALSE}
+pop_m <- read_excel("DATA R/RAW-data.xlsx")
+
+pop_m %>% 
+  filter(., Site == "A" ) %>% 
+  select(ID_BEE, Passage) -> pop_m
+```
+
+
+
+```{r group, echo=FALSE}
+pop <- read_excel("DATA R/RAW-data.xlsx",sheet = "Matrix_female (group)")
+pop %>% 
+  as.data.frame(pop) %>% 
+  filter(site == "A")-> pop_A
+table(pop_A$matrix)
+
+pop %>% 
+  as.data.frame(pop) %>% 
+  filter(site == "C")-> pop_C
+table(pop_C$matrix)
+
+pop %>% 
+  as.data.frame(pop) %>% 
+  filter(site == "D")-> pop_D
+table(pop_D$matrix)
+
+```

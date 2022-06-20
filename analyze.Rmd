@@ -1,0 +1,48 @@
+---
+title: "Analyze"
+author: "Jordan Benrezkallah"
+date: "4/13/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+library("readxl")
+library(dplyr)
+#library(ggpubr)
+library(tidyverse)
+library(knitr)
+library(ggplot2)
+#library(kableExtra)
+#library(scales)
+#library(devEMF)
+#library(rcapture)
+#library(mra)
+#library(RMark)
+library(marked)
+
+
+pop <- data(dipper)
+```
+
+```{r matrix, echo=FALSE}
+dipper.male <- dipper[which(dipper$sex=="Male"),]
+
+dipper.proc=process.data(dipper.male,model="cjs",begin.time=1)
+
+dipper.ddl=make.design.data(dipper.proc)
+
+mod.Phit.pt <- crm(dipper.proc,dipper.ddl,model.parameters=list(Phi=list(formula=~time),p=list(formula=~time)),method="Nelder-Mead",hessian = T)
+
+mod.Phit.pt
+
+mod.Phit.pt$results$AIC
+```
+
+```{r matrix, echo=FALSE}
+mod.Phidot.pdot <- crm(dipper.proc,dipper.ddl,model.parameters = list(Phi=list(formula=~1),p=list(formula=~1)),method="Nelder-Mead",hessian = TRUE)
+mod.Phidot.pdot
+mod.Phidot.pdot$results$AIC
+```
+
+
+
