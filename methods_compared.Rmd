@@ -28,17 +28,17 @@ ggplot(df, aes(fill=method, y=pop, x=site)) +
   geom_errorbar(aes(ymin=low, ymax=up), width=.2,
                  position=position_dodge(.9)) + 
   geom_text(aes(label=pop, y= 450), position=position_dodge(width=0.9), vjust=-0.25,
-            fontface = "bold", size = 3) +
+            fontface = "bold", size = 6) +
   labs(x = "Study site", y = "Population estimate",fill = "Method",fontface = "bold") + 
   scale_fill_brewer(palette="Set1") +
-  theme(axis.title.x = element_text(face="bold"),
-        axis.title.y = element_text(face="bold"),
-        axis.text.x = element_text(face="bold", color= "black", size=10),
-        axis.text.y = element_text(face="bold", color= "black", size=10),
+  theme(axis.title.x = element_text(face="bold", size = 20), # Study site
+        axis.title.y = element_text(face="bold", size = 20), # Population estimate
+        axis.text.x = element_text(face="bold", color= "black", size=18), # A C D
+        axis.text.y = element_text(face="bold", color= "black", size=18), # 0 100 200 300 400
         panel.grid.major = element_blank(),panel.grid.minor = element_blank(),
         panel.background = element_rect(fill='white', colour='black'),
-        legend.title = element_text(size=10, face="bold"),
-        legend.text = element_text(size=10, face="bold"),
+        legend.title = element_text(size=20, face="bold"), # le mot "Method" dans la légende
+        legend.text = element_text(size=20, face="bold"), # les methods dans la légende
         legend.position="bottom") 
 
 
@@ -49,7 +49,11 @@ ggsave(filename = "D:/OneDrive - UMONS/UMONS/MA2/ERASMUS CHYPRE/Internship repor
 
 ```
 
+```{export to png}
 
+ggsave(filename = "D:/OneDrive - UMONS/UMONS/MA2/ERASMUS CHYPRE/Internship report/img/site_compared.png", device = "png", width = 32, height = 17, units = "cm" )
+
+```
 
 ```{r barplot}
 df <- as.data.frame(read_excel("DATA/method_R.xlsx",sheet = "R"))
